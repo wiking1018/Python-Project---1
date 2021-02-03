@@ -12,9 +12,10 @@ after you fork the snapshot of this workspace.
 """
 
 import random
+import sys
 
 
-def start_game():
+def start_game(last_score=0):
     """Psuedo-code Hints
 
     When the program starts, we want to:
@@ -41,6 +42,9 @@ def start_game():
       ===============================
       """
     )
+    if last_score:
+        print("\nYour Best Score is {}!\n".format(last_score))
+
     random_number = random.randrange(1, 10)
     guessed_number = int(input("Please enter a Number between 1 - 10 : "))
     guess_count = 1
@@ -59,9 +63,16 @@ def start_game():
             print("Guessed Number is correct!")
             break
     print("number of guesses are :{}".format(guess_count))
+    return guess_count
 
 
 # Kick off the program by calling the start_game function.
+last_score = 0
+last_score = start_game()
 
-
-start_game()
+response = input("Would you like to play again? Y/N").lower()
+if response == "y":
+    start_game(last_score)
+else:
+    print("Good Bye!")
+    sys.exit()
