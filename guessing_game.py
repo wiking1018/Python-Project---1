@@ -63,16 +63,18 @@ def start_game(last_score=0):
             print("Guessed Number is correct!")
             break
     print("number of guesses are :{}".format(guess_count))
-    return guess_count
+    response = input("Would you like to play again? Y/N :").lower()
+    if response == "y":
+        if last_score == 0:
+            return start_game(guess_count)
+        elif(guess_count < last_score):
+            start_game(guess_count)
+        else:
+            start_game(last_score)
+    else:
+        print("Good Bye!")
+        sys.exit()
 
 
 # Kick off the program by calling the start_game function.
-last_score = 0
-last_score = start_game()
-
-response = input("Would you like to play again? Y/N").lower()
-if response == "y":
-    start_game(last_score)
-else:
-    print("Good Bye!")
-    sys.exit()
+start_game()
