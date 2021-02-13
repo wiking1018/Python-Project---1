@@ -2,78 +2,69 @@
 Python Web Development Techdegree
 Project 1 - Number Guessing Game
 --------------------------------
-
-For this first project we will be using Workspaces.
-
-NOTE: If you strongly prefer to work locally on your own computer, you can
-totally do that by clicking: File -> Download Workspace in the file menu
-after you fork the snapshot of this workspace.
+Description : A fun game which allow user to guess the
+              stored number with minimal tries.
+Author : Paul Raj
+Date : 13th February 2021
 
 """
 
 import random
 import sys
 
-
-def start_game(last_score=0):
-    """Psuedo-code Hints
-
-    When the program starts, we want to:
-    ------------------------------------
-    1. Display an intro/welcome message to the player.
-    2. Store a random number as the answer/solution.
-    3. Continuously prompt the player for a guess.
-      a. If the guess greater than the solution, display to the player
-         "It's lower".
-      b. If the guess is less than the solution, display to the player
-        "It's higher".
-
-    4. Once the guess is correct, stop looping, inform the user they "Got it"
-            and show how many attempts it took them to get the correct number.
-    5. Let the player know the game is ending, or something that indicates
-       the game is over.
-    ( You can add more features/enhancements if you'd like to. )
+print(
     """
-    # write your code inside this function.
-    print(
-        """
       ===============================
       WECLOME TO NUMBER GUESSING GAME
       ===============================
       """
-    )
+)
+
+
+def start_game(last_score=0):
+    # code for Number Guessing
     if last_score:
         print("\nYour Best Score is {}!\n".format(last_score))
 
     random_number = random.randrange(1, 10)
-    guessed_number = int(input("Please enter a Number between 1 - 10 : "))
     guess_count = 1
-    while True:
-        if guessed_number > random_number:
-            print("Entered Number is greater than guessed Number!")
-            guessed_number = int(input("Please enter a Number between 1 - 10 : "))
-            guess_count += 1
-            continue
-        elif guessed_number < random_number:
-            print("Entered Number is less than guessed Number!")
-            guessed_number = int(input("Please enter a Number between 1 - 10 : "))
-            guess_count += 1
-            continue
-        elif guessed_number == random_number:
-            print("Guessed Number is correct!")
-            break
-    print("number of guesses are :{}".format(guess_count))
-    response = input("Would you like to play again? Y/N :").lower()
-    if response == "y":
-        if last_score == 0:
-            return start_game(guess_count)
-        elif(guess_count < last_score):
-            start_game(guess_count)
-        else:
+    try:
+        guessed_number = int(input("Please enter a Number between 1 - 10 : "))
+        if guessed_number > 10 or guessed_number < 1:
+            print("\nPlease Choose Number between 1 and 10!\n")
             start_game(last_score)
+    except ValueError:
+        print("\nWrong Input, Please Enter an Integer between 1 and 10!\n")
+        start_game(last_score)
     else:
-        print("Good Bye!")
-        sys.exit()
+        while True:
+            if guessed_number > random_number:
+                print("Entered Number is greater than guessed Number!")
+                guessed_number = int(
+                    input("Out of range, Please enter a Number between 1 - 10 : ")
+                )
+                guess_count += 1
+                continue
+            elif guessed_number < random_number:
+                print("Entered Number is less than guessed Number!")
+                guessed_number = int(input("Please enter a Number between 1 - 10 : "))
+                guess_count += 1
+                continue
+            elif guessed_number == random_number:
+                print("\nGuessed Number is correct!")
+                break
+        print("number of guesses are :{}\n".format(guess_count))
+        response = input("Would you like to play again? Y/N :").lower()
+        if response == "y":
+            if last_score == 0:
+                return start_game(guess_count)
+            elif guess_count < last_score:
+                start_game(guess_count)
+            else:
+                start_game(last_score)
+        else:
+            print("\nGood Bye!")
+            sys.exit()
 
 
 # Kick off the program by calling the start_game function.
