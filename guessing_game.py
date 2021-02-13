@@ -4,8 +4,8 @@ Project 1 - Number Guessing Game
 --------------------------------
 Description : A fun game which allow user to guess the
               stored number with minimal tries.
-Author : Paul Raj
-Date : 13th February 2021
+Author      : Paul Raj
+Date        : 13th February 2021
 
 """
 
